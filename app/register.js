@@ -10,13 +10,13 @@ const Register = () => {
   const router = useRouter();
 
   const handleRegister = () => {
-   
+
     if (username && password) {
-      
+
       localStorage.setItem('username', username);
       localStorage.setItem('password', password);
 
-     
+
       router.push('/login');
     } else {
       setError('Por favor, preencha todos os campos');
@@ -25,10 +25,10 @@ const Register = () => {
 
   return (
     <View style={styles.container}>
-      <Image 
-              source={require('../assets/logo-color.png')}
-              style={{ width: 250, height: 150, resizeMode: 'contain' }}
-            />
+      <Image
+        source={require('../assets/logo-color.png')}
+        style={{ width: 250, height: 150, resizeMode: 'contain' }}
+      />
       <TextInput
         placeholder="Usuário"
         value={username}
@@ -43,7 +43,7 @@ const Register = () => {
         style={styles.input}
       />
       {error && <Text style={styles.error}>{error}</Text>}
-      
+
       {/* Usando TouchableOpacity para o botão de cadastro */}
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Cadastrar</Text>
@@ -53,7 +53,7 @@ const Register = () => {
         style={styles.link}
         onPress={() => router.push('/login')}
       >
-        Já tem uma conta? <span style={{color: '#F20505'}}>Faça login</span>
+        Já tem uma conta? <span style={{ color: '#F20505' }}>Faça login</span>
       </Text>
     </View>
   );
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {
-    backgroundColor: '#FF0000', 
+    backgroundColor: '#FF0000',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   buttonText: {
-    color: '#fff', 
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },

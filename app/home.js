@@ -33,12 +33,12 @@ const Home = () => {
   return (
     <View style={styles.container}>
       {/* Logo */}
-      <Image 
+      <Image
         source={require('../assets/Animation.png')}
         style={{ width: 100, height: 150, resizeMode: 'contain' }}
       />
       <Text style={styles.text}>Buscar um personagem da Disney</Text>
-      
+
       {/* Container da pesquisa */}
       <View style={styles.searchContainer}>
         <TextInput
@@ -47,7 +47,7 @@ const Home = () => {
           value={search}
           onChangeText={setSearch}
         />
-        
+
         {/* Botões de Ação */}
         <TouchableOpacity style={styles.button} onPress={fetchCharacters}>
           <Text style={styles.buttonText}>Buscar</Text>
@@ -59,7 +59,7 @@ const Home = () => {
 
       {/* Mensagem de erro */}
       {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
-      
+
       {/* Resultados da pesquisa */}
       <FlatList
         data={characters}
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     width: '100%',
-    paddingBottom: 20, 
+    paddingBottom: 20,
   },
   input: {
     height: 40,
@@ -146,21 +146,21 @@ const styles = StyleSheet.create({
     color: '#5F5E68',
   },
   button: {
-    backgroundColor: '#F20505', 
+    backgroundColor: '#F20505',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
     alignItems: 'center',
     marginTop: 10,
-    width: '100%',  
+    width: '100%',
   },
   buttonText: {
-    color: '#fff', 
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
   flatList: {
-    flex: 1, 
+    flex: 1,
   },
   text: {
     alignItems: 'center',

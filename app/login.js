@@ -14,7 +14,7 @@ const Login = () => {
     const storedPassword = localStorage.getItem('password');
 
     if (username === storedUsername && password === storedPassword) {
-      
+
       router.push('/home');
     } else {
       setError('Usuário ou senha incorretos');
@@ -22,9 +22,9 @@ const Login = () => {
   };
 
   return (
-    
+
     <View style={styles.container}>
-      <Image 
+      <Image
         source={require('../assets/logo-color.png')}
         style={{ width: 250, height: 150, resizeMode: 'contain' }}
       />
@@ -42,7 +42,7 @@ const Login = () => {
         style={styles.input}
       />
       {error && <Text style={styles.error}>{error}</Text>}
-      
+
       {/* Usando TouchableOpacity para criar um botão customizado */}
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entrar</Text>
@@ -52,7 +52,7 @@ const Login = () => {
         style={styles.link}
         onPress={() => router.push('/register')}
       >
-        Não tem uma conta? <span style={{color: '#F20505'}}>Cadastre-se</span>
+        Não tem uma conta? <span style={{ color: '#F20505' }}>Cadastre-se</span>
       </Text>
     </View>
   );
@@ -90,9 +90,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
     width: '100%',
-    },
+  },
   buttonText: {
-    color: '#fff', 
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
