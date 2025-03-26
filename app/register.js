@@ -10,13 +10,13 @@ const Register = () => {
   const router = useRouter();
 
   const handleRegister = () => {
-    // Lógica para registro, que pode ser uma simples validação de usuário e senha
+   
     if (username && password) {
-      // Salva as informações no localStorage
+      
       localStorage.setItem('username', username);
       localStorage.setItem('password', password);
 
-      // Após o cadastro, navega para a tela de login
+     
       router.push('/login');
     } else {
       setError('Por favor, preencha todos os campos');
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {
-    backgroundColor: '#FF0000', // Cor vermelha
+    backgroundColor: '#FF0000', 
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   buttonText: {
-    color: '#fff', // Cor do texto do botão
+    color: '#fff', 
     fontSize: 16,
     fontWeight: 'bold',
   },

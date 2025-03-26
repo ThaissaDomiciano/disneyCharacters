@@ -14,7 +14,7 @@ const Login = () => {
     const storedPassword = localStorage.getItem('password');
 
     if (username === storedUsername && password === storedPassword) {
-      // Se o login for bem-sucedido, navega para a Home
+      
       router.push('/home');
     } else {
       setError('Usuário ou senha incorretos');
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {
-    backgroundColor: '#F20505', // Cor vermelha
+    backgroundColor: '#F20505',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     width: '100%',
     },
   buttonText: {
-    color: '#fff', // Cor do texto do botão
+    color: '#fff', 
     fontSize: 16,
     fontWeight: 'bold',
   },

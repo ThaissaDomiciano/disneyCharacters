@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     width: '100%',
-    paddingBottom: 20,  // Espaço entre a busca e os resultados
+    paddingBottom: 20, 
   },
   input: {
     height: 40,
@@ -146,21 +146,21 @@ const styles = StyleSheet.create({
     color: '#5F5E68',
   },
   button: {
-    backgroundColor: '#F20505', // Cor vermelha
+    backgroundColor: '#F20505', 
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
     alignItems: 'center',
     marginTop: 10,
-    width: '100%',  // Largura 100% igual ao Login
+    width: '100%',  
   },
   buttonText: {
-    color: '#fff', // Cor do texto do botão
+    color: '#fff', 
     fontSize: 16,
     fontWeight: 'bold',
   },
   flatList: {
-    flex: 1, // O FlatList ocupa o espaço restante
+    flex: 1, 
   },
   text: {
     alignItems: 'center',
