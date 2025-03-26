@@ -37,7 +37,7 @@ const Home = () => {
         source={require('../assets/Animation.png')}
         style={{ width: 100, height: 150, resizeMode: 'contain' }}
       />
-      <Text style={styles.text}>Buscar um personagem da Disney</Text>
+      <Text style={styles.text}>Buscar um personagem</Text>
 
       {/* Container da pesquisa */}
       <View style={styles.searchContainer}>
