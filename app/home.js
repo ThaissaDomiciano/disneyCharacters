@@ -117,10 +117,10 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 15,
     padding: 10,
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 10,
     marginTop: 10,
+    backgroundColor: 'white',
+    alignItems: 'center',
   },
   image: {
     width: 100,
