@@ -35,8 +35,12 @@ const Home = () => {
       {/* Logo */}
       <Image
         source={require('../assets/disney.png')}
-        style={{ width: 300, height: 200, resizeMode: 'contain' }}
+        style={{ width: 250, height: 150, resizeMode: 'contain' }}
       />
+       <Image
+              source={require('../assets/stitch.png')}
+              style={{ width: 200, height: 150, resizeMode: 'contain' }}
+            />
       <Text style={styles.text}>Buscar um personagem</Text>
 
       {/* Container da pesquisa */}
@@ -66,10 +70,11 @@ const Home = () => {
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <View style={styles.card}>
+            <Text style={styles.name}>{item.name}</Text>
             {item.imageUrl && (
               <Image source={{ uri: item.imageUrl }} style={styles.image} />
             )}
-            <Text style={styles.name}>{item.name}</Text>
+           
 
             {/* Exibindo filmes */}
             {item.films && item.films.length > 0 ? (
@@ -119,7 +124,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
-    backgroundColor: '#FEE567',
+    backgroundColor: '#AD84AE',
     alignItems: 'center',
   },
   image: {
@@ -131,21 +136,23 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 18,
-    marginBottom: 5,
+    fontSize: 20,
+    marginBottom: 20,
+    marginTop: 10,
+    color: '#043A5C'
   },
   filmsContainer: {
     marginTop: 10,
   },
   filmsTitle: {
     marginBottom: 5,
-    color: '#5F5E68',
+    color: '#282626',
     fontWeight: '500',
   },
   film: {
     fontFamily: 'sans-serif',
     fontSize: 14,
-    color: '#5F5E68',
+    color: '#282626',
   },
   button: {
     backgroundColor: '#8FD9FC',

@@ -28,6 +28,7 @@ const Login = () => {
   source={require('../assets/logo.png')} 
   style={{ width: 400, height: 230, resizeMode: 'contain' }} 
 />
+    <Text style={styles.loginText}>LOGIN</Text>
       <TextInput
         placeholder="Usuário"
         value={username}
@@ -97,6 +98,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  loginText: {
+    color: '#fff',
+    fontFamily: 'sans-serif',
+    fontSize: 20,
+    margin: 10,
+    fontWeight: 500
+  }
 });
 
 export default Login;
