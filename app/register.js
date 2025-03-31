@@ -26,8 +26,8 @@ const Register = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../assets/logo-color.png')}
-        style={{ width: 300, height: 150, resizeMode: 'contain' }}
+        source={require('../assets/logo.png')}
+        style={{ width: 400, height: 230, resizeMode: 'contain' }}
       />
       <TextInput
         placeholder="Usuário"
@@ -53,7 +53,7 @@ const Register = () => {
         style={styles.link}
         onPress={() => router.push('/login')}
       >
-        Já tem uma conta? <span style={{ color: '#F20505' }}>Faça login</span>
+        Já tem uma conta? <span style={{ color: '#8FD9FC', fontWeight: '500' }}>Faça login</span>
       </Text>
     </View>
   );
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#F9D70B',
+    backgroundColor: '#043A5C',
   },
   input: {
     height: 40,
@@ -82,9 +82,10 @@ const styles = StyleSheet.create({
   },
   link: {
     marginTop: 20,
+    color: '#fff'
   },
   button: {
-    backgroundColor: '#F20505',
+    backgroundColor: '#8FD9FC',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   buttonText: {
-    color: '#fff',
+    color: '#043A5C',
     fontSize: 16,
     fontWeight: 'bold',
   },

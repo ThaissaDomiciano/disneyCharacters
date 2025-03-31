@@ -34,8 +34,8 @@ const Home = () => {
     <View style={styles.container}>
       {/* Logo */}
       <Image
-        source={require('../assets/Animation.png')}
-        style={{ width: 100, height: 150, resizeMode: 'contain' }}
+        source={require('../assets/disney.png')}
+        style={{ width: 300, height: 200, resizeMode: 'contain' }}
       />
       <Text style={styles.text}>Buscar um personagem</Text>
 
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#F9D70B',
+    backgroundColor: '#043A5C',
     alignItems: 'center',
   },
   searchContainer: {
@@ -115,22 +115,23 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   card: {
-    marginBottom: 15,
+    marginBottom: 10,
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#FEE567',
     alignItems: 'center',
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
     borderRadius: 8,
     marginBottom: 10,
   },
   name: {
+    fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 5,
   },
   filmsContainer: {
@@ -142,11 +143,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   film: {
+    fontFamily: 'sans-serif',
     fontSize: 14,
     color: '#5F5E68',
   },
   button: {
-    backgroundColor: '#F20505',
+    backgroundColor: '#8FD9FC',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -155,7 +157,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   buttonText: {
-    color: '#fff',
+    fontFamily: 'sans-serif',
+    color: '#043A5C',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -163,10 +166,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
+    fontFamily: 'sans-serif',
     alignItems: 'center',
     margin: 20,
     fontSize: 25,
     fontWeight: 700,
+    color: '#fff'
   },
 });
 
