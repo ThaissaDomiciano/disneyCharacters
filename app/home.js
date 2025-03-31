@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, FlatList, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
+import { useRouter } from 'expo-router';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Home = () => {
   const [search, setSearch] = useState('');
   const [characters, setCharacters] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
 
   const fetchCharacters = async () => {
     if (!search) return;
@@ -30,8 +33,15 @@ const Home = () => {
     setErrorMessage('');
   };
 
+  const handleLogout = () => {
+    router.push('/login');
+  }; 
+
   return (
     <View style={styles.container}>
+       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Icon name="logout" size={28} color="#fff" />
+      </TouchableOpacity>
       {/* Logo */}
       <Image
         source={require('../assets/disney.png')}
@@ -98,9 +108,16 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 30,
     backgroundColor: '#043A5C',
     alignItems: 'center',
+  },
+  logoutButton: {
+    position: 'absolute',
+    top: 60,
+    margin: 20,
+    right: 20,
+    backgroundColor: 'transparent',
   },
   searchContainer: {
     width: '100%',
@@ -121,7 +138,8 @@ const styles = StyleSheet.create({
   },
   card: {
     marginBottom: 10,
-    padding: 10,
+    padding: 20,
+    width: 350,
     borderRadius: 10,
     marginTop: 10,
     backgroundColor: '#AD84AE',
@@ -139,20 +157,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 20,
     marginTop: 10,
-    color: '#043A5C'
+    color: 'white',
   },
   filmsContainer: {
     marginTop: 10,
   },
   filmsTitle: {
     marginBottom: 5,
-    color: '#282626',
-    fontWeight: '500',
+    color: 'white',
+    fontWeight: '400',
   },
   film: {
     fontFamily: 'sans-serif',
     fontSize: 14,
-    color: '#282626',
+    color: 'white',
+    fontWeight: '400'
   },
   button: {
     backgroundColor: '#8FD9FC',
