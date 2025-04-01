@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Image } from 'react-native-web';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -9,17 +9,25 @@ const Register = () => {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
+    if (!username || !password) {
+      setError('Por favor, preencha todos os campos');
+      return;
+    }
 
-    if (username && password) {
+    try {
+      const existingUser = await AsyncStorage.getItem(username);
+      if (existingUser) {
+        setError('Usuário já cadastrado!');
+        return;
+      }
 
-      localStorage.setItem('username', username);
-      localStorage.setItem('password', password);
-
+      // Salva as credenciais no AsyncStorage
+      await AsyncStorage.setItem(username, JSON.stringify({ username, password }));
 
       router.push('/login');
-    } else {
-      setError('Por favor, preencha todos os campos');
+    } catch (error) {
+      setError('Erro ao cadastrar usuário');
     }
   };
 
@@ -45,7 +53,6 @@ const Register = () => {
       />
       {error && <Text style={styles.error}>{error}</Text>}
 
-      {/* Usando TouchableOpacity para o botão de cadastro */}
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Cadastrar</Text>
       </TouchableOpacity>
@@ -54,7 +61,7 @@ const Register = () => {
         style={styles.link}
         onPress={() => router.push('/login')}
       >
-        Já tem uma conta? <span style={{ color: '#8FD9FC', fontWeight: '500' }}>Faça login</span>
+        Já tem uma conta? <Text style={{ color: '#8FD9FC', fontWeight: '500' }}>Faça login</Text>
       </Text>
     </View>
   );
@@ -101,10 +108,9 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: '#fff',
-    fontFamily: 'sans-serif',
     fontSize: 20,
     margin: 10,
-    fontWeight: 500
+    fontWeight: '500',
   }
 });
 

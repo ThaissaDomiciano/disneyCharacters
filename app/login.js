@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Image } from 'react-native-web';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -9,26 +9,34 @@ const Login = () => {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleLogin = () => {
-    const storedUsername = localStorage.getItem('username');
-    const storedPassword = localStorage.getItem('password');
+  const handleLogin = async () => {
+    try {
+      const storedUser = await AsyncStorage.getItem(username);
+      
+      if (!storedUser) {
+        setError('Usuário não encontrado');
+        return;
+      }
 
-    if (username === storedUsername && password === storedPassword) {
+      const { password: storedPassword } = JSON.parse(storedUser);
 
-      router.push('/home');
-    } else {
-      setError('Usuário ou senha incorretos');
+      if (password === storedPassword) {
+        router.push('/home');
+      } else {
+        setError('Usuário ou senha incorretos');
+      }
+    } catch (err) {
+      setError('Erro ao tentar fazer login');
     }
   };
 
   return (
-
     <View style={styles.container}>
       <Image 
-  source={require('../assets/logo.png')} 
-  style={{ width: 400, height: 230, resizeMode: 'contain' }} 
-/>
-    <Text style={styles.loginText}>LOGIN</Text>
+        source={require('../assets/logo.png')} 
+        style={{ width: 400, height: 230, resizeMode: 'contain' }} 
+      />
+      <Text style={styles.loginText}>LOGIN</Text>
       <TextInput
         placeholder="Usuário"
         value={username}
@@ -44,7 +52,6 @@ const Login = () => {
       />
       {error && <Text style={styles.error}>{error}</Text>}
 
-      {/* Usando TouchableOpacity para criar um botão customizado */}
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
@@ -53,7 +60,7 @@ const Login = () => {
         style={styles.link}
         onPress={() => router.push('/register')}
       >
-        Não tem uma conta? <span style={{ color: '#8FD9FC', fontWeight: '500'}}>Cadastre-se</span>
+        Não tem uma conta? <Text style={{ color: '#8FD9FC', fontWeight: '500'}}>Cadastre-se</Text>
       </Text>
     </View>
   );
@@ -100,10 +107,9 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: '#fff',
-    fontFamily: 'sans-serif',
     fontSize: 20,
     margin: 10,
-    fontWeight: 500
+    fontWeight: '500',
   }
 });
 
