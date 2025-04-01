@@ -45,11 +45,11 @@ const Home = () => {
       {/* Logo */}
       <Image
         source={require('../assets/disney.png')}
-        style={{ width: 250, height: 150, resizeMode: 'contain' }}
+        style={{ width: 250, height: 120, resizeMode: 'contain' }}
       />
        <Image
               source={require('../assets/stitch.png')}
-              style={{ width: 200, height: 150, resizeMode: 'contain' }}
+              style={{ width: 300, height: 100, resizeMode: 'contain' }}
             />
       <Text style={styles.text}>Buscar um personagem</Text>
 
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     width: '100%',
     paddingBottom: 20,
+    marginTop: 20,
   },
   input: {
     height: 40,
@@ -141,7 +142,6 @@ const styles = StyleSheet.create({
     padding: 20,
     width: 350,
     borderRadius: 10,
-    marginTop: 10,
     backgroundColor: '#AD84AE',
     alignItems: 'center',
   },
@@ -149,21 +149,21 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 8,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   name: {
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
     fontSize: 20,
-    marginBottom: 20,
-    marginTop: 10,
+    marginBottom: 10,
+    marginTop: 5,
     color: 'white',
   },
   filmsContainer: {
-    marginTop: 10,
+    marginTop: 5,
   },
   filmsTitle: {
-    marginBottom: 5,
+    marginBottom: 3,
     color: 'white',
     fontWeight: '400',
   },
@@ -190,12 +190,14 @@ const styles = StyleSheet.create({
   },
   flatList: {
     flex: 1,
+    marginBottom: 20,
+    width: '100%',
   },
   text: {
     fontFamily: 'sans-serif',
     alignItems: 'center',
     margin: 20,
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 700,
     color: '#fff'
   },
