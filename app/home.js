@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  View, TextInput, TouchableOpacity, Text, FlatList, StyleSheet, Image, ScrollView, KeyboardAvoidingView, Platform 
+  View, TextInput, TouchableOpacity, Text, FlatList, StyleSheet, Image, ScrollView, KeyboardAvoidingView, Platform
 } from 'react-native';
 import axios from 'axios';
 import { useRouter } from 'expo-router';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = () => {
   const [search, setSearch] = useState('');
   const [characters, setCharacters] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [history, setHistory] = useState([]);
   const router = useRouter();
+
+  useEffect(() => {
+    loadHistory();
+  }, []);
 
   const fetchCharacters = async () => {
     if (!search) return;
-
     try {
       const response = await axios.get(`https://api.disneyapi.dev/character?name=${search}`);
-      if (response.data.data.length === 0) {
+      if (!response.data.data || response.data.data.length === 0) {
         setErrorMessage('Nenhum personagem encontrado.');
       } else {
         setCharacters(response.data.data);
@@ -28,6 +33,37 @@ const Home = () => {
     }
   };
 
+  const saveToHistory = async (character) => {
+    try {
+      const updatedHistory = [...history, character];
+      setHistory(updatedHistory);
+      await AsyncStorage.setItem('characterHistory', JSON.stringify(updatedHistory));
+    } catch (error) {
+      console.error('Erro ao salvar no histórico', error);
+    }
+  };
+
+  const loadHistory = async () => {
+    try {
+      const storedHistory = await AsyncStorage.getItem('characterHistory');
+      if (storedHistory) {
+        setHistory(JSON.parse(storedHistory));
+      }
+    } catch (error) {
+      console.error('Erro ao carregar o histórico', error);
+    }
+  };
+
+  const removeFromHistory = async (characterId) => {
+    try {
+      const updatedHistory = history.filter((item) => item._id !== characterId);
+      setHistory(updatedHistory);
+      await AsyncStorage.setItem('characterHistory', JSON.stringify(updatedHistory));
+    } catch (error) {
+      console.error('Erro ao remover do histórico', error);
+    }
+  };
+
   const clearSearch = () => {
     setSearch('');
     setCharacters([]);
@@ -35,24 +71,18 @@ const Home = () => {
   };
 
   const handleLogout = () => {
-    router.push('/login');
+    router.replace('/login');
   };
 
   return (
-    <KeyboardAvoidingView 
-      style={{ flex: 1 }} 
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Icon name="logout" size={28} color="#fff" />
         </TouchableOpacity>
-
-        <Image source={require('../assets/disney.png')} style={styles.logo} />
-        <Image source={require('../assets/stitch.png')} style={styles.banner} />
-
+        <Image source={require('../assets/disney.png')} style={{ width: 250, height: 120, resizeMode: 'contain' }} />
+        <Image source={require('../assets/stitch.png')} style={{ width: 300, height: 100, resizeMode: 'contain' }} />
         <Text style={styles.text}>Buscar um personagem</Text>
-
         <View style={styles.searchContainer}>
           <TextInput
             style={styles.input}
@@ -67,16 +97,15 @@ const Home = () => {
             <Text style={styles.buttonText}>Limpar Busca</Text>
           </TouchableOpacity>
         </View>
-
         {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
-
+        
         {characters.map((item) => (
           <View key={item._id} style={styles.card}>
             <Text style={styles.name}>{item.name}</Text>
-            {item.imageUrl && (
-              <Image source={{ uri: item.imageUrl }} style={styles.image} />
-            )}
-            {item.films?.length > 0 ? (
+            {item.imageUrl && <Image source={{ uri: item.imageUrl }} style={styles.image} />}
+            
+            {/* Exibição dos filmes */}
+            {item.films && item.films.length > 0 ? (
               <View style={styles.filmsContainer}>
                 <Text style={styles.filmsTitle}>Filmes:</Text>
                 {item.films.map((film, index) => (
@@ -86,6 +115,21 @@ const Home = () => {
             ) : (
               <Text style={styles.filmsTitle}>Nenhum filme disponível.</Text>
             )}
+            
+            <TouchableOpacity style={styles.button} onPress={() => saveToHistory(item)}>
+              <Text style={styles.buttonText}>Salvar no histórico</Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+
+        <Text style={styles.text}>Histórico de personagens</Text>
+        {history.map((item) => (
+          <View key={item._id} style={styles.card}>
+            <Text style={styles.name}>{item.name}</Text>
+            {item.imageUrl && <Image source={{ uri: item.imageUrl }} style={styles.image} />}
+            <TouchableOpacity style={styles.button} onPress={() => removeFromHistory(item._id)}>
+              <Text style={styles.buttonText}>Remover do histórico</Text>
+            </TouchableOpacity>
           </View>
         ))}
       </ScrollView>
@@ -97,34 +141,19 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
     alignItems: 'center',
+    padding: 20,
     backgroundColor: '#043A5C',
-    paddingBottom: 30,
   },
   logoutButton: {
     position: 'absolute',
     top: 60,
     right: 20,
-    backgroundColor: 'transparent',
-  },
-  logo: {
-    width: 250,
-    height: 120,
-    resizeMode: 'contain',
-  },
-  banner: {
-    width: 300,
-    height: 100,
-    resizeMode: 'contain',
-  },
-  text: {
-    margin: 20,
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#fff',
+    backgroundColor: '#043A5C',
   },
   searchContainer: {
-    width: '90%',
+    width: '100%',
     paddingBottom: 20,
+    marginTop: 20,
   },
   input: {
     height: 40,
@@ -154,9 +183,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   name: {
-    fontWeight: 'bold',
     fontSize: 20,
-    marginBottom: 10,
+    fontWeight: 'bold',
     color: 'white',
   },
   filmsContainer: {
@@ -168,6 +196,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   film: {
+    fontFamily: 'sans-serif',
     fontSize: 14,
     color: 'white',
     fontWeight: '400',
@@ -176,6 +205,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#8FD9FC',
     borderRadius: 10,
     paddingVertical: 10,
+    paddingHorizontal: 20,
     alignItems: 'center',
     marginTop: 10,
     width: '100%',
@@ -184,6 +214,13 @@ const styles = StyleSheet.create({
     color: '#043A5C',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  text: {
+    alignItems: 'center',
+    margin: 20,
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#fff',
   },
 });
 
